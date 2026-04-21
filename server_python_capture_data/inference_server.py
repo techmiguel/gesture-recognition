@@ -17,6 +17,8 @@
 #   (El ESP32-S3 debe estar conectado por USB antes de ejecutar)
 # =============================================================================
 
+from __future__ import annotations
+
 import serial
 import serial.tools.list_ports
 import csv

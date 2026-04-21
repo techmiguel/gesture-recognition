@@ -1,6 +1,6 @@
 # Gesture Recognition — ESP32-S3 + MPU6050 + TensorFlow Lite
 
-Sistema completo de reconocimiento de gestos en tiempo real sobre hardware embebido. Un sensor IMU de 6 ejes (MPU6050) conectado a un ESP32-S3 captura movimientos, los clasifica on-device con un modelo TensorFlow Lite, y reporta los resultados vía WebSocket.
+Sistema completo de reconocimiento de gestos en tiempo real sobre hardware embebido. Un sensor IMU de 6 ejes (MPU6050) conectado a un ESP32-S3 captura movimientos, los clasifica on-device con un modelo TensorFlow Lite, y reporta los resultados por Serial USB.
 
 **Clases reconocidas:** `arriba` · `abajo` · `izquierda` · `derecha` · `reposo`
 
@@ -22,8 +22,8 @@ Sistema completo de reconocimiento de gestos en tiempo real sobre hardware embeb
 
 ┌─────────────────────────────── FASE 3: INFERENCIA ─────────────────────────────┐
 │                                                                                 │
-│  [MPU6050] ──I2C──► [ESP32-S3 + TFLite] ──WebSocket:8766──► [inference_server] │
-│                       on-device inference               JSON + confidence score  │
+│  [MPU6050] ──I2C──► [ESP32-S3 + TFLite] ──Serial USB──► [inference_server.py]  │
+│                       on-device inference              "Gesto: X | Confianza: Y" │
 └─────────────────────────────────────────────────────────────────────────────────┘
 ```
 

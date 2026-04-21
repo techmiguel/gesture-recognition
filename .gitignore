@@ -1,0 +1,41 @@
+# ── Credenciales y configuración local ──────────────────────────────────────
+firmware_esp32s3/firmware/esp32s3_capture/secrets.h
+
+# ── Entornos Python ──────────────────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+.env
+
+# ── Logs de inferencia (generados en runtime) ────────────────────────────────
+server_python_capture_data/inference_log_*.csv
+
+# ── Archivos duplicados .txt (copias de los .py, generadas por el IDE) ────────
+esp32s3_inference/*.txt
+firmware_esp32s3/**/*.txt
+server_python_capture_data/*.txt
+
+# ── IDEs y editores ──────────────────────────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Herramientas de terceros ─────────────────────────────────────────────────
+.qwen/
+.claude/
+
+# ── Sistema operativo ────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Arduino ──────────────────────────────────────────────────────────────────
+build/
+*.elf
+*.bin
+*.map

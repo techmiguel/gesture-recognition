@@ -25,6 +25,8 @@ static const float NORM_STD[NUM_AXES]  = {  0.296141f,   0.310030f,  0.035352f,
 static uint8_t*                  tensor_arena = nullptr;
 static tflite::MicroInterpreter* interpreter  = nullptr;
 
+// Orden alfabético — debe coincidir con sklearn LabelEncoder de train.py:
+//   0=abajo, 1=arriba, 2=derecha, 3=izquierda, 4=reposo
 static const char* GESTURE_NAMES[NUM_CLASSES] = {
     "Abajo", "Arriba", "Derecha", "Izquierda", "Reposo"
 };

@@ -51,19 +51,20 @@ gesture_recognition/
 │           └── secrets.h.template    # Plantilla de credenciales WiFi
 │
 ├── esp32s3_inference/
-│   ├── esp32s3_inference.ino         # Firmware de inferencia on-device
+│   ├── esp32s3_inference.ino         # Firmware de inferencia on-device (Serial)
 │   └── gesture_model.h              # Modelo TFLite embebido como array C
 │
 ├── server_python_capture_data/
 │   ├── capture_server.py             # Servidor WebSocket de captura (Fase 1)
 │   ├── train.py                      # Pipeline de entrenamiento (Fase 2)
-│   ├── inference_server.py           # Servidor WebSocket de inferencia (Fase 3)
+│   ├── inference_server.py           # Logger Serial de inferencia (Fase 3)
 │   ├── data_*.csv                    # Dataset capturado (200 muestras/clase)
 │   ├── gesture_model.keras           # Modelo Keras completo
 │   ├── gesture_model_float32.tflite  # Modelo TFLite (float32, 437 KB)
 │   ├── norm_params.npz              # Parámetros de normalización Z-score
 │   └── training_results.png         # Curvas de accuracy y matriz de confusión
 │
+├── .gitattributes
 ├── requirements.txt
 ├── LICENSE
 └── README.md
@@ -159,26 +160,35 @@ Dense(5, softmax)
 
 ## Fase 3 — Inferencia on-device
 
-### 1. Copiar modelo al firmware de inferencia
+### 1. Copiar el modelo actualizado al firmware
 
-Tras el entrenamiento, `gesture_model.h` ya está en la carpeta correcta. Actualizar los parámetros de normalización hardcodeados en `esp32s3_inference.ino` con los valores impresos por `train.py` (sección `norm_params.npz`).
+Tras re-entrenar, copiar el `gesture_model.h` generado a `esp32s3_inference/` y actualizar `NORM_MEAN` / `NORM_STD` en `esp32s3_inference.ino` con los valores impresos por `train.py`.
 
-### 2. Arrancar el servidor de inferencia en la PC
+### 2. Flashear el firmware de inferencia
 
-```bash
-cd server_python_capture_data
-python inference_server.py
+Cargar `esp32s3_inference.ino` en el ESP32-S3. El dispositivo clasifica gestos localmente y los imprime por Serial:
+
 ```
-
-### 3. Flashear el firmware de inferencia
-
-Cargar `esp32s3_inference.ino` en el ESP32-S3. El dispositivo clasifica gestos localmente y envía el resultado vía WebSocket:
-
-```json
-{"gesture": "arriba", "confidence": 0.9821, "timestamp": 12345}
+Gesto: Arriba | Confianza: 0.9821
 ```
 
 Solo se reportan gestos con confianza ≥ **0.90**.
+
+### 3. Leer las predicciones en la PC
+
+Con el ESP32-S3 conectado por USB:
+
+```bash
+cd server_python_capture_data
+
+# Detección automática de puerto
+python inference_server.py
+
+# O especificando el puerto manualmente
+python inference_server.py --port COM3
+```
+
+El servidor detecta automáticamente el puerto USB, muestra las predicciones en consola y guarda un CSV de log con timestamp.
 
 ---
 

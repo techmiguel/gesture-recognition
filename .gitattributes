@@ -1,0 +1,21 @@
+# ── Normalización de line endings ────────────────────────────────────────────
+* text=auto
+
+# ── Archivos binarios — sin diff, sin merge, sin conversión de EOL ───────────
+*.tflite  binary
+*.keras   binary
+*.npz     binary
+*.png     binary
+*.jpg     binary
+*.jpeg    binary
+
+# ── Arduino / C++ — LF en repo, CRLF en Windows (opcional, ya lo maneja Arduino IDE)
+*.ino     text eol=lf
+*.h       text eol=lf
+*.cpp     text eol=lf
+
+# ── Python
+*.py      text eol=lf
+
+# ── CSV — preservar tal cual (datos con comas, sin alterar EOL)
+*.csv     text eol=lf

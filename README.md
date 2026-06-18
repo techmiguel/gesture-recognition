@@ -2,7 +2,6 @@
 [![Framework](https://img.shields.io/badge/Framework-TFLite--Micro-green)](https://github.com/tensorflow/tflite-micro)
 [![Language](https://img.shields.io/badge/Language-C%2B%2B%20%7C%20Python-orange)](.)
 [![License: MIT](https://img.shields.io/badge/License-MIT-lightgrey)](LICENSE)
-[![Demo](https://img.shields.io/badge/Demo-YouTube-red)](YOUR_LINK_HERE)
 
 # Gesture Recognition — ESP32-S3 + MPU6050 + TFLite Micro
 
